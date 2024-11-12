@@ -16,7 +16,7 @@ const Products = () => {
     };
 
     axios
-      .get("http://localhost:3060/books", { params })
+      .get("http://localhost:3000/books", { params })
       .then((res) => setBooks(res.data));
   }, [searchParams]);
 

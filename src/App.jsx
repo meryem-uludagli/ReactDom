@@ -1,28 +1,46 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Category from "./pages/Category";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Detail from "./pages/Detail";
+import Undefined from "./pages/Undefined";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./pages/Layout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/ürünler",
+        element: <Products />,
+      },
+      {
+        path: "/detay/:id",
+        element: <Detail />,
+      },
+
+      {
+        path: "/kategori",
+        element: <Category />,
+        children: [
+          { path: "hikaye", element: <h1>Hikaye</h1> },
+          { path: "roman", element: <h1>Roman</h1> },
+        ],
+      },
+      { path: "*", element: <Undefined /> },
+    ],
+  },
+]);
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <div className="page">
-        <Header />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Products" element={<Products />} />
-          <Route path="/Detail/:id" element={<Detail />} />
-          <Route path="/Category" element={<Category />} />
-        </Routes>
-
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
